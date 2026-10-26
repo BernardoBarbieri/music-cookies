@@ -1,0 +1,186 @@
+/* =========================================================
+   MUSIC COOKIES — style.css (mobile-first)
+   Índice: 1 Tokens · 2 Base · 3 Botões · 4 Header · 5 Hero
+           6 Seções · 7 Cards · 8 Rodapé · 9 Animações · 10 Desktop
+   ========================================================= */
+
+/* 1. TOKENS ------------------------------------------------ */
+:root {
+  --choc:    #2E1710;  /* chocolate: hero e rodapé */
+  --cream:   #FFF4EC;  /* fundo claro */
+  --butter:  #FFD27A;  /* massa do cookie */
+  --berry:   #FF8FA8;  /* morango: destaque */
+  --pistachio: #CFE8C4; /* pastel de apoio */
+  --ink:     #3A2218;  /* texto sobre claro */
+  --radius:  18px;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+}
+
+/* 2. BASE -------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.6;
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--berry); outline-offset: 3px; }
+
+/* 3. BOTÕES ------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; gap: .7rem;
+  padding: .9rem 1.5rem;
+  border-radius: 999px;
+  background: var(--berry); color: var(--choc);
+  font-weight: 700; text-decoration: none;
+  border: 2px solid var(--berry);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 rgba(46, 23, 16, .18); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+.btn--small { padding: .5rem 1.1rem; font-size: .95rem; }
+.btn--ghost { background: transparent; border-color: var(--choc); color: var(--choc); }
+.btn--ghost:hover { background: var(--choc); color: var(--cream); }
+.btn--play { font-size: 1.1rem; padding: 1.05rem 1.8rem; background: var(--butter); border-color: var(--butter); }
+
+/* Equalizador dentro do CTA: anima só no hover/foco */
+.eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 18px; }
+.eq i { width: 4px; height: 6px; border-radius: 2px; background: var(--choc); }
+.btn--play:hover .eq i, .btn--play:focus-visible .eq i { animation: bounce .7s ease-in-out infinite alternate; }
+.eq i:nth-child(2) { animation-delay: .15s !important; }
+.eq i:nth-child(3) { animation-delay: .3s !important; }
+.eq i:nth-child(4) { animation-delay: .45s !important; }
+
+/* 4. HEADER ------------------------------------------------ */
+.site-header {
+  position: absolute; inset: 0 0 auto 0; z-index: 5;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.25rem;
+  color: var(--cream);
+}
+.brand { display: flex; align-items: center; gap: .5rem; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; text-decoration: none; }
+.brand__icon { width: 28px; height: 28px; }
+
+/* 5. HERO -------------------------------------------------- */
+.hero {
+  background: var(--choc); color: var(--cream);
+  display: grid; gap: 2rem; align-items: center;
+  padding: 6.5rem 1.25rem 3rem;
+}
+.hero h1 { font-size: clamp(2.3rem, 9vw, 4.2rem); font-weight: 800; max-width: 14ch; }
+.hero__sub { margin: 1.1rem 0 1.8rem; font-size: 1.15rem; max-width: 32ch; color: #F3D9C6; }
+
+/* Cookie-disco */
+.hero__art { display: grid; place-items: center; }
+.disc {
+  position: relative; width: min(78vw, 380px); aspect-ratio: 1; border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle, transparent 0 9px, rgba(46, 23, 16, .14) 9px 10px),
+    radial-gradient(circle at 35% 30%, #FFE3A6, var(--butter) 45%, #E0A34F);
+  box-shadow: 0 0 0 6px #C98B3F, 0 30px 60px rgba(0, 0, 0, .45);
+  border: 0; padding: 0; cursor: pointer;
+  animation: spin 8s linear infinite; /* gira o tempo todo */
+}
+.disc:hover .disc__label { transform: scale(1.08); }
+.disc__label { transition: transform .2s ease; }
+.icon-pause { display: none; }
+.disc.is-playing .icon-play { display: none; }
+.disc.is-playing .icon-pause { display: block; }
+.hero__art { gap: 1.2rem; }
+.hero__hint { color: #F3D9C6; font-size: .95rem; }
+.chip { position: absolute; width: 11%; height: 8%; border-radius: 45% 55% 50% 50%; background: #4A2A1C; }
+.chip--1 { top: 12%; left: 44%; transform: rotate(20deg); }
+.chip--2 { top: 30%; left: 76%; transform: rotate(-30deg); }
+.chip--3 { top: 70%; left: 78%; transform: rotate(50deg); }
+.chip--4 { top: 82%; left: 40%; transform: rotate(-10deg); }
+.chip--5 { top: 64%; left: 10%; transform: rotate(35deg); }
+.chip--6 { top: 26%; left: 12%; transform: rotate(-45deg); }
+.disc__label {
+  position: absolute; inset: 34%; border-radius: 50%;
+  background: var(--berry); display: grid; place-items: center;
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .35);
+}
+.disc__label svg { width: 45%; }
+
+.wave { display: block; width: 100%; height: 40px; margin-top: -1px; background: var(--choc); }
+
+/* 6. SEÇÕES ------------------------------------------------ */
+.section { padding: 4rem 1.25rem; max-width: 1100px; margin: 0 auto; }
+.section h2 { font-size: clamp(1.9rem, 6vw, 2.8rem); font-weight: 800; margin-bottom: 2rem; }
+
+/* Passos (sequência real) */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+.step { display: grid; grid-template-columns: auto 1fr; column-gap: 1rem; align-items: start; }
+.step__n {
+  grid-row: span 2; width: 3rem; height: 3rem; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--butter); font-family: var(--font-display); font-weight: 800; font-size: 1.4rem;
+}
+.step h3 { font-size: 1.25rem; }
+.step p { grid-column: 2; }
+
+/* 7. CARDS ------------------------------------------------- */
+.products { max-width: none; background: #FFE1E6; }
+.products > * { max-width: 1100px; margin-inline: auto; }
+.cards { display: grid; gap: 1.25rem; }
+.card {
+  display: flex; flex-direction: column; gap: .8rem; align-items: flex-start;
+  background: var(--cream); border-radius: var(--radius); padding: 1.6rem;
+}
+.card h3 { font-size: 1.4rem; }
+.price { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; margin-top: auto; }
+.price--consult { font-size: 1.5rem; }
+.card--featured { background: var(--choc); color: var(--cream); }
+.card--featured .price { color: var(--butter); }
+
+/* Diferenciais */
+.values__grid { display: grid; gap: 1.5rem; }
+.value { border-left: 6px solid var(--berry); padding-left: 1rem; }
+.value:nth-child(2) { border-color: var(--butter); }
+.value:nth-child(3) { border-color: #9CCB8C; }
+.value h3 { font-size: 1.3rem; margin-bottom: .3rem; }
+
+/* 8. RODAPÉ ------------------------------------------------ */
+.footer { background: var(--choc); color: var(--cream); padding: 3rem 1.25rem 1.5rem; }
+.footer__inner { max-width: 1100px; margin: 0 auto; display: grid; gap: 2rem; }
+.footer__brand { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; margin-bottom: .4rem; }
+.footer .btn { margin-top: 1rem; }
+.footer nav { display: flex; gap: 1.5rem; align-items: flex-start; }
+.footer nav a { font-weight: 600; text-underline-offset: 4px; }
+.footer nav a:hover { color: var(--berry); }
+.footer__copy { max-width: 1100px; margin: 2rem auto 0; font-size: .85rem; opacity: .7; }
+
+/* 9. ANIMAÇÕES --------------------------------------------- */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bounce { from { height: 4px; } to { height: 18px; } }
+
+/* Fade-in ao rolar: só ativa se o JS estiver rodando */
+.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Movimento reduzido: o disco só gira se a pessoa der play */
+  .disc:not(.is-playing), .btn--play:hover .eq i { animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* 10. DESKTOP ---------------------------------------------- */
+@media (min-width: 768px) {
+  .site-header { padding: 1.5rem 3rem; }
+  .hero { grid-template-columns: 1.1fr .9fr; padding: 8rem 3rem 5rem; }
+  .steps { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .step { grid-template-columns: 1fr; }
+  .step__n { grid-row: auto; margin-bottom: .8rem; }
+  .step p { grid-column: 1; }
+  .cards { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+  .card--featured { transform: translateY(-14px); }
+  .values__grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  .footer__inner { grid-template-columns: 1fr auto; }
+}
